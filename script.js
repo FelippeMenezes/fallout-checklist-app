@@ -19,32 +19,58 @@ document.addEventListener('DOMContentLoaded', () => {
             listElement.innerHTML = ''; 
 
             // 3. Para cada item recebido da API, cria um elemento na lista
+            // 3. Para cada item recebido da API, cria um elemento na lista
             items.forEach(item => {
                 const li = document.createElement('li');
-                li.dataset.id = item.id; // Guarda o ID do item no próprio elemento
+                li.dataset.id = item.id;
 
-                // Cria o span para o nome e raridade
+                // --- NOVAS MUDANÇAS AQUI ---
+
+                // Cria um container para o conteúdo (nome + raridade)
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'item-content';
+
                 const itemName = document.createElement('span');
                 itemName.textContent = item.name;
 
                 const itemRarity = document.createElement('span');
                 itemRarity.className = 'item-rarity';
                 itemRarity.textContent = item.rarity;
+                
+                contentDiv.appendChild(itemName);
+                contentDiv.appendChild(itemRarity);
 
-                li.appendChild(itemName);
-                li.appendChild(itemRarity);
+                // Cria o CHECKBOX REAL
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'item-checkbox';
 
-                // 4. Verifica se este item já estava marcado
+                // Adiciona tudo ao elemento da lista
+                li.appendChild(checkbox);
+                li.appendChild(contentDiv);
+
+                // 4. Verifica se este item já estava marcado e marca o checkbox
                 if (checkedItems.includes(item.id)) {
+                    checkbox.checked = true;
                     li.classList.add('checked');
                 }
 
-                // 5. Adiciona o evento de "click" (ou toque) para marcar/desmarcar
-                li.addEventListener('click', () => {
-                    // Alterna a classe visual 'checked'
-                    li.classList.toggle('checked');
-                    // Salva o estado atualizado no armazenamento do aparelho
+                // 5. Adiciona o evento de "change" (mudar) no checkbox
+                checkbox.addEventListener('change', () => {
+                    // Alterna a classe visual no 'li' pai
+                    li.classList.toggle('checked', checkbox.checked);
+                    // Salva o estado atualizado
                     updateCheckedItems(category);
+                });
+
+                // Adiciona um clique no item inteiro para marcar o checkbox (melhor usabilidade)
+                li.addEventListener('click', (event) => {
+                    // Impede que o clique no checkbox acione este evento também
+                    if (event.target !== checkbox) {
+                       checkbox.checked = !checkbox.checked;
+                       // Dispara o evento 'change' manualmente
+                       checkbox.dispatchEvent(new Event('change'));
+                    }
                 });
 
                 listElement.appendChild(li);

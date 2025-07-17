@@ -59,18 +59,73 @@ h2 {
     border-color: #2cff2c40;
 }
 
-.checklist li.checked::before {
-    content: '[X] ';
-    margin-right: 10px;
-}
-
-.checklist li::before {
-    content: '[ ] ';
-    margin-right: 10px;
-}
-
 .item-rarity {
     color: #2cff2c99;
     font-style: italic;
     font-size: 0.9em;
+}
+
+/* --- NOVOS ESTILOS PARA CHECKBOX REAL --- */
+
+.checklist li {
+    /* Mude a forma como os itens são alinhados */
+    display: flex;
+    align-items: center; /* Alinha o checkbox e o texto verticalmente */
+    gap: 15px; /* Espaço entre o checkbox e o texto */
+    justify-content: flex-start; /* Remove o justify-content: space-between */
+}
+
+/* Oculta o checkbox padrão do navegador */
+.item-checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 2px solid #2cff2c80;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+
+/* Estilo do "X" dentro do checkbox */
+.item-checkbox::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    background-color: #2cff2c;
+    /* Efeito de "scan line" no X */
+    background-image: linear-gradient(rgba(21, 24, 19, 0.5) 50%, transparent 50%);
+    background-size: 100% 4px;
+}
+
+/* Mostra o "X" quando o checkbox está marcado */
+.item-checkbox:checked::before {
+    transform: scale(1);
+}
+
+/* Estilo do container do nome e raridade */
+.item-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Faz ele ocupar o resto do espaço */
+    align-items: center;
+}
+
+/* Estilo do item da lista quando o checkbox está marcado */
+.checklist li.checked {
+    /* Mantemos estes estilos para o texto */
+    color: #2cff2c80;
+    text-decoration: line-through;
+}
+
+/* Estilo do checkbox quando o item está marcado */
+.checklist li.checked .item-checkbox {
+    border-color: #2cff2c40;
 }
