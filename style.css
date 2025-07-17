@@ -1,0 +1,76 @@
+/* Estilo geral com tema Pip-Boy */
+body {
+    background-color: #151813; /* Preto fosco */
+    color: #2cff2c; /* Verde fósforo */
+    font-family: 'Consolas', 'Monaco', monospace;
+    margin: 0;
+    padding: 1rem;
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px solid #2cff2c;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #2cff2c80;
+    padding-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+/* Estilo das listas de checklist */
+.checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checklist li {
+    background-color: #1a2a1a; /* Verde escuro */
+    border: 1px solid #2cff2c80;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    cursor: pointer; /* Indica que é clicável */
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checklist li:hover {
+    background-color: #234d23;
+}
+
+/* O estilo do item QUANDO ESTÁ MARCADO */
+.checklist li.checked {
+    background-color: #111;
+    color: #2cff2c80;
+    text-decoration: line-through;
+    border-color: #2cff2c40;
+}
+
+.checklist li.checked::before {
+    content: '[X] ';
+    margin-right: 10px;
+}
+
+.checklist li::before {
+    content: '[ ] ';
+    margin-right: 10px;
+}
+
+.item-rarity {
+    color: #2cff2c99;
+    font-style: italic;
+    font-size: 0.9em;
+}
